@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const totalPriceEl = document.getElementById("totalPrice");
   const clearOrderBtn = document.getElementById("clearOrderBtn");
   const sendOrderBtn = document.getElementById("sendOrderBtn");
+  const revealItems = document.querySelectorAll(".reveal");
+  const dashboard = document.getElementById("dashboardMockup");
 
   function formatBRL(value) {
     return Number(value).toLocaleString("pt-BR", {
@@ -19,8 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const items = [];
 
     serviceCards.forEach((card) => {
-      const name = card.getAttribute("data-name") || "Serviço";
-      const price = Number(card.getAttribute("data-price")) || 0;
+      const name = card.dataset.name || "Serviço";
+      const price = Number(card.dataset.price) || 0;
       const qtyInput = card.querySelector(".qty-input");
       const qty = qtyInput ? Number(qtyInput.value) || 0 : 0;
 
@@ -99,8 +101,8 @@ document.addEventListener("DOMContentLoaded", () => {
       let message = "Olá, quero solicitar um orçamento na Luman.%0A%0A";
 
       serviceCards.forEach((card) => {
-        const name = card.getAttribute("data-name") || "Serviço";
-        const price = Number(card.getAttribute("data-price")) || 0;
+        const name = card.dataset.name || "Serviço";
+        const price = Number(card.dataset.price) || 0;
         const qtyInput = card.querySelector(".qty-input");
         const qty = qtyInput ? Number(qtyInput.value) || 0 : 0;
 
@@ -120,7 +122,46 @@ document.addEventListener("DOMContentLoaded", () => {
       message += `%0ATotal estimado: ${formatBRL(total)}`;
 
       const phone = "5521971574979";
-      window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+      const url = `https://wa.me/${phone}?text=${message}`;
+      window.open(url, "_blank");
+    });
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+        }
+      });
+    },
+    {
+      threshold: 0.12
+    }
+  );
+
+  revealItems.forEach((item) => observer.observe(item));
+
+  if (dashboard && window.innerWidth > 768) {
+    document.addEventListener("mousemove", (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 16;
+      const y = (e.clientY / window.innerHeight - 0.5) * 16;
+
+      dashboard.style.transform = `
+        perspective(1200px)
+        rotateX(${-y * 0.45}deg)
+        rotateY(${x * 0.45}deg)
+        translate3d(0, 0, 0)
+      `;
+    });
+
+    document.addEventListener("mouseleave", () => {
+      dashboard.style.transform = `
+        perspective(1200px)
+        rotateX(0deg)
+        rotateY(0deg)
+        translate3d(0, 0, 0)
+      `;
     });
   }
 
