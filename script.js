@@ -1,13 +1,12 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   const serviceCards = document.querySelectorAll(".service-card");
   const summaryList = document.getElementById("summaryList");
   const totalPriceEl = document.getElementById("totalPrice");
   const clearOrderBtn = document.getElementById("clearOrderBtn");
   const sendOrderBtn = document.getElementById("sendOrderBtn");
-  const parallaxElements = document.querySelectorAll(".parallax");
 
   function formatBRL(value) {
-    return value.toLocaleString("pt-BR", {
+    return Number(value).toLocaleString("pt-BR", {
       style: "currency",
       currency: "BRL"
     });
@@ -16,28 +15,28 @@ document.addEventListener("DOMContentLoaded", function () {
   function updateSummary() {
     if (!summaryList || !totalPriceEl) return;
 
-    const selectedItems = [];
     let total = 0;
+    const items = [];
 
     serviceCards.forEach((card) => {
-      const name = card.dataset.name;
-      const price = Number(card.dataset.price);
+      const name = card.getAttribute("data-name") || "Serviço";
+      const price = Number(card.getAttribute("data-price")) || 0;
       const qtyInput = card.querySelector(".qty-input");
-      const qty = Number(qtyInput.value) || 0;
+      const qty = qtyInput ? Number(qtyInput.value) || 0 : 0;
 
       if (qty > 0) {
         const subtotal = price * qty;
         total += subtotal;
-        selectedItems.push({ name, price, qty, subtotal });
+        items.push({ name, price, qty, subtotal });
       }
     });
 
     summaryList.innerHTML = "";
 
-    if (selectedItems.length === 0) {
+    if (items.length === 0) {
       summaryList.innerHTML = `<div class="empty-summary">Nenhum item selecionado ainda.</div>`;
     } else {
-      selectedItems.forEach((item) => {
+      items.forEach((item) => {
         const div = document.createElement("div");
         div.className = "summary-item";
         div.innerHTML = `
@@ -59,50 +58,56 @@ document.addEventListener("DOMContentLoaded", function () {
     const plusBtn = card.querySelector(".plus");
     const qtyInput = card.querySelector(".qty-input");
 
-    plusBtn.addEventListener("click", function () {
-      qtyInput.value = Number(qtyInput.value) + 1;
-      updateSummary();
-    });
+    if (!qtyInput) return;
 
-    minusBtn.addEventListener("click", function () {
-      const current = Number(qtyInput.value);
-      qtyInput.value = current > 0 ? current - 1 : 0;
-      updateSummary();
-    });
+    if (plusBtn) {
+      plusBtn.addEventListener("click", () => {
+        qtyInput.value = Number(qtyInput.value || 0) + 1;
+        updateSummary();
+      });
+    }
 
-    qtyInput.addEventListener("input", function () {
-      if (qtyInput.value === "" || Number(qtyInput.value) < 0) {
-        qtyInput.value = 0;
-      }
+    if (minusBtn) {
+      minusBtn.addEventListener("click", () => {
+        const current = Number(qtyInput.value || 0);
+        qtyInput.value = current > 0 ? current - 1 : 0;
+        updateSummary();
+      });
+    }
+
+    qtyInput.addEventListener("input", () => {
+      const value = Number(qtyInput.value);
+      qtyInput.value = !isNaN(value) && value >= 0 ? value : 0;
       updateSummary();
     });
   });
 
   if (clearOrderBtn) {
-    clearOrderBtn.addEventListener("click", function () {
+    clearOrderBtn.addEventListener("click", () => {
       serviceCards.forEach((card) => {
-        const input = card.querySelector(".qty-input");
-        input.value = 0;
+        const qtyInput = card.querySelector(".qty-input");
+        if (qtyInput) qtyInput.value = 0;
       });
       updateSummary();
     });
   }
 
   if (sendOrderBtn) {
-    sendOrderBtn.addEventListener("click", function () {
-      let message = "Olá, quero solicitar um orçamento na Luman.%0A%0A";
-      let hasItems = false;
+    sendOrderBtn.addEventListener("click", () => {
       let total = 0;
+      let hasItems = false;
+      let message = "Olá, quero solicitar um orçamento na Luman.%0A%0A";
 
       serviceCards.forEach((card) => {
-        const name = card.dataset.name;
-        const price = Number(card.dataset.price);
-        const qty = Number(card.querySelector(".qty-input").value) || 0;
+        const name = card.getAttribute("data-name") || "Serviço";
+        const price = Number(card.getAttribute("data-price")) || 0;
+        const qtyInput = card.querySelector(".qty-input");
+        const qty = qtyInput ? Number(qtyInput.value) || 0 : 0;
 
         if (qty > 0) {
+          hasItems = true;
           const subtotal = price * qty;
           total += subtotal;
-          hasItems = true;
           message += `• ${name} — ${qty}x — ${formatBRL(subtotal)}%0A`;
         }
       });
@@ -115,22 +120,9 @@ document.addEventListener("DOMContentLoaded", function () {
       message += `%0ATotal estimado: ${formatBRL(total)}`;
 
       const phone = "5521971574979";
-      const url = `https://wa.me/${phone}?text=${message}`;
-      window.open(url, "_blank");
+      window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
     });
   }
 
-  function handleParallax() {
-    const scrollY = window.scrollY;
-
-    parallaxElements.forEach((element) => {
-      const speed = parseFloat(element.dataset.speed || "0.05");
-      const y = scrollY * speed;
-      element.style.transform = `translateY(${y}px)`;
-    });
-  }
-
-  window.addEventListener("scroll", handleParallax);
   updateSummary();
-  handleParallax();
 });
