@@ -1,155 +1,136 @@
-const serviceCards = document.querySelectorAll(".service-card");
-const summaryList = document.getElementById("summaryList");
-const totalPriceEl = document.getElementById("totalPrice");
-const clearOrderBtn = document.getElementById("clearOrderBtn");
-const sendOrderBtn = document.getElementById("sendOrderBtn");
-const dashboard = document.querySelector(".dashboard-mockup");
+document.addEventListener("DOMContentLoaded", function () {
+  const serviceCards = document.querySelectorAll(".service-card");
+  const summaryList = document.getElementById("summaryList");
+  const totalPriceEl = document.getElementById("totalPrice");
+  const clearOrderBtn = document.getElementById("clearOrderBtn");
+  const sendOrderBtn = document.getElementById("sendOrderBtn");
+  const parallaxElements = document.querySelectorAll(".parallax");
 
-function formatBRL(value) {
-  return value.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-  });
-}
-
-function updateSummary() {
-  const selectedItems = [];
-  let total = 0;
-
-  serviceCards.forEach((card) => {
-    const name = card.dataset.name;
-    const price = Number(card.dataset.price);
-    const qtyInput = card.querySelector(".qty-input");
-    const qty = Number(qtyInput.value) || 0;
-
-    if (qty > 0) {
-      const subtotal = price * qty;
-      total += subtotal;
-      selectedItems.push({ name, price, qty, subtotal });
-    }
-  });
-
-  summaryList.innerHTML = "";
-
-  if (selectedItems.length === 0) {
-    summaryList.innerHTML = `<div class="empty-summary">Nenhum item selecionado ainda.</div>`;
-  } else {
-    selectedItems.forEach((item) => {
-      const div = document.createElement("div");
-      div.className = "summary-item";
-      div.innerHTML = `
-        <div>
-          <strong>${item.name}</strong>
-          <span>${item.qty}x ${formatBRL(item.price)}</span>
-        </div>
-        <div class="summary-price">${formatBRL(item.subtotal)}</div>
-      `;
-      summaryList.appendChild(div);
+  function formatBRL(value) {
+    return value.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL"
     });
   }
 
-  totalPriceEl.textContent = formatBRL(total);
-}
+  function updateSummary() {
+    if (!summaryList || !totalPriceEl) return;
 
-serviceCards.forEach((card) => {
-  const minusBtn = card.querySelector(".minus");
-  const plusBtn = card.querySelector(".plus");
-  const qtyInput = card.querySelector(".qty-input");
+    const selectedItems = [];
+    let total = 0;
 
-  plusBtn.addEventListener("click", () => {
-    qtyInput.value = Number(qtyInput.value) + 1;
-    updateSummary();
-  });
+    serviceCards.forEach((card) => {
+      const name = card.dataset.name;
+      const price = Number(card.dataset.price);
+      const qtyInput = card.querySelector(".qty-input");
+      const qty = Number(qtyInput.value) || 0;
 
-  minusBtn.addEventListener("click", () => {
-    const current = Number(qtyInput.value);
-    qtyInput.value = current > 0 ? current - 1 : 0;
-    updateSummary();
-  });
+      if (qty > 0) {
+        const subtotal = price * qty;
+        total += subtotal;
+        selectedItems.push({ name, price, qty, subtotal });
+      }
+    });
 
-  qtyInput.addEventListener("input", () => {
-    if (qtyInput.value < 0 || qtyInput.value === "") qtyInput.value = 0;
-    updateSummary();
-  });
-});
+    summaryList.innerHTML = "";
 
-clearOrderBtn.addEventListener("click", () => {
-  serviceCards.forEach((card) => {
-    card.querySelector(".qty-input").value = 0;
-  });
-  updateSummary();
-});
-
-sendOrderBtn.addEventListener("click", () => {
-  let message = "Olá, quero solicitar um orçamento na Luman.%0A%0A";
-  let hasItems = false;
-  let total = 0;
-
-  serviceCards.forEach((card) => {
-    const name = card.dataset.name;
-    const price = Number(card.dataset.price);
-    const qty = Number(card.querySelector(".qty-input").value) || 0;
-
-    if (qty > 0) {
-      const subtotal = price * qty;
-      total += subtotal;
-      hasItems = true;
-      message += `• ${name} — ${qty}x — ${formatBRL(subtotal)}%0A`;
+    if (selectedItems.length === 0) {
+      summaryList.innerHTML = `<div class="empty-summary">Nenhum item selecionado ainda.</div>`;
+    } else {
+      selectedItems.forEach((item) => {
+        const div = document.createElement("div");
+        div.className = "summary-item";
+        div.innerHTML = `
+          <div>
+            <strong>${item.name}</strong>
+            <span>${item.qty}x ${formatBRL(item.price)}</span>
+          </div>
+          <div class="summary-price">${formatBRL(item.subtotal)}</div>
+        `;
+        summaryList.appendChild(div);
+      });
     }
-  });
 
-  if (!hasItems) {
-    alert("Selecione pelo menos um item antes de solicitar o orçamento.");
-    return;
+    totalPriceEl.textContent = formatBRL(total);
   }
 
-  message += `%0ATotal estimado: ${formatBRL(total)}`;
+  serviceCards.forEach((card) => {
+    const minusBtn = card.querySelector(".minus");
+    const plusBtn = card.querySelector(".plus");
+    const qtyInput = card.querySelector(".qty-input");
 
-  const phone = "5521971574979";
-  const url = `https://wa.me/${phone}?text=${message}`;
-  window.open(url, "_blank");
-});
+    plusBtn.addEventListener("click", function () {
+      qtyInput.value = Number(qtyInput.value) + 1;
+      updateSummary();
+    });
 
-updateSummary();
+    minusBtn.addEventListener("click", function () {
+      const current = Number(qtyInput.value);
+      qtyInput.value = current > 0 ? current - 1 : 0;
+      updateSummary();
+    });
 
-const parallaxElements = document.querySelectorAll(".parallax");
-
-function handleParallax() {
-  const scrollY = window.scrollY;
-
-  parallaxElements.forEach((element) => {
-    const speed = parseFloat(element.dataset.speed || 0.05);
-    const y = scrollY * speed;
-    element.style.transform = `translate3d(0, ${y}px, 0)`;
+    qtyInput.addEventListener("input", function () {
+      if (qtyInput.value === "" || Number(qtyInput.value) < 0) {
+        qtyInput.value = 0;
+      }
+      updateSummary();
+    });
   });
-}
 
-window.addEventListener("scroll", handleParallax);
+  if (clearOrderBtn) {
+    clearOrderBtn.addEventListener("click", function () {
+      serviceCards.forEach((card) => {
+        const input = card.querySelector(".qty-input");
+        input.value = 0;
+      });
+      updateSummary();
+    });
+  }
 
-document.addEventListener("mousemove", (e) => {
-  if (!dashboard) return;
+  if (sendOrderBtn) {
+    sendOrderBtn.addEventListener("click", function () {
+      let message = "Olá, quero solicitar um orçamento na Luman.%0A%0A";
+      let hasItems = false;
+      let total = 0;
 
-  const centerX = window.innerWidth / 2;
-  const centerY = window.innerHeight / 2;
+      serviceCards.forEach((card) => {
+        const name = card.dataset.name;
+        const price = Number(card.dataset.price);
+        const qty = Number(card.querySelector(".qty-input").value) || 0;
 
-  const rotateY = (e.clientX - centerX) / 45;
-  const rotateX = -(e.clientY - centerY) / 55;
+        if (qty > 0) {
+          const subtotal = price * qty;
+          total += subtotal;
+          hasItems = true;
+          message += `• ${name} — ${qty}x — ${formatBRL(subtotal)}%0A`;
+        }
+      });
 
-  dashboard.style.transform = `
-    perspective(1200px)
-    rotateX(${rotateX}deg)
-    rotateY(${rotateY}deg)
-    translate3d(0, 0, 0)
-  `;
-});
+      if (!hasItems) {
+        alert("Selecione pelo menos um item antes de solicitar o orçamento.");
+        return;
+      }
 
-document.addEventListener("mouseleave", () => {
-  if (!dashboard) return;
+      message += `%0ATotal estimado: ${formatBRL(total)}`;
 
-  dashboard.style.transform = `
-    perspective(1200px)
-    rotateX(0deg)
-    rotateY(0deg)
-    translate3d(0, 0, 0)
-  `;
+      const phone = "5521971574979";
+      const url = `https://wa.me/${phone}?text=${message}`;
+      window.open(url, "_blank");
+    });
+  }
+
+  function handleParallax() {
+    const scrollY = window.scrollY;
+
+    parallaxElements.forEach((element) => {
+      const speed = parseFloat(element.dataset.speed || "0.05");
+      const y = scrollY * speed;
+      element.style.transform = `translateY(${y}px)`;
+    });
+  }
+
+  window.addEventListener("scroll", handleParallax);
+  updateSummary();
+  handleParallax();
 });
