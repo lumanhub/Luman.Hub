@@ -1,381 +1,291 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Luman.Hub | Plataforma Criativa</title>
+:root {
+  --bg: #05050a;
+  --bg-2: #0a0914;
+  --bg-3: #140816;
+  --text: #faf7ff;
+  --muted: #c5b6d5;
+  --line: rgba(255, 255, 255, 0.1);
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet"
-  />
+  --purple: #8a2eff;
+  --purple-deep: #5e11b8;
+  --pink: #ff2ea6;
+  --pink-deep: #c61e7d;
+  --pink-soft: #ff8bd0;
 
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="page-bg"></div>
-  <div class="grid-overlay"></div>
-  <div class="noise"></div>
-  <div class="glow glow-1"></div>
-  <div class="glow glow-2"></div>
+  --glass-1: rgba(255, 255, 255, 0.085);
+  --glass-2: rgba(255, 255, 255, 0.045);
 
-  <header class="header">
-    <div class="container nav">
-      <a href="#topo" class="brand">
-        <img src="logo-luman.png" alt="Luman Hub" class="brand-logo" />
-        <div class="brand-text-wrap">
-          <span class="brand-title">Luman.Hub</span>
-          <span class="brand-subtitle">Agência de Marketing</span>
-        </div>
-      </a>
+  --shadow: 0 20px 70px rgba(0, 0, 0, 0.42);
+  --shadow-soft: 0 10px 40px rgba(138, 46, 255, 0.14);
 
-      <nav class="nav-links">
-        <a href="#como-funciona">Como funciona</a>
-        <a href="#planos">Planos</a>
-        <a href="#cardapio">Cardápio</a>
-        <a href="#contato">Contato</a>
-      </nav>
+  --radius: 26px;
+  --radius-sm: 18px;
+  --container: 1200px;
+}
 
-      <a href="#cardapio" class="btn btn-primary">Montar pedido</a>
-    </div>
-  </header>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  <main>
-    <section class="hero" id="topo">
-      <div class="container hero-grid">
-        <div class="hero-content reveal">
-          <span class="tag">PLATAFORMA CRIATIVA DA LUMAN</span>
+html {
+  scroll-behavior: smooth;
+}
 
-          <h1>
-            A sua marca não precisa de
-            <span class="gradient-text">mais do mesmo</span>.
-            Precisa de presença que para o dedo, marca a mente e vende.
-          </h1>
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  position: relative;
+}
 
-          <p class="hero-text">
-            A Luman transforma design em percepção, posicionamento em desejo e estrutura em valor.
-            Aqui, seu cliente entra em uma experiência premium, escolhe o que precisa como em um
-            cardápio criativo e sente que está diante de uma marca séria, moderna e impossível de ignorar.
-          </p>
+.page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -5;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(138, 46, 255, 0.20), transparent 24%),
+    radial-gradient(circle at 82% 14%, rgba(255, 46, 166, 0.18), transparent 23%),
+    radial-gradient(circle at 70% 72%, rgba(138, 46, 255, 0.12), transparent 28%),
+    linear-gradient(180deg, #030307 0%, #070710 45%, #050509 100%);
+}
 
-          <div class="hero-actions">
-            <a href="#cardapio" class="btn btn-primary">Quero montar meu pedido</a>
-            <a href="#planos" class="btn btn-secondary">Ver planos fixos</a>
-          </div>
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -4;
+  pointer-events: none;
+  opacity: 0.34;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(circle at center, black 35%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle at center, black 35%, transparent 100%);
+}
 
-          <div class="hero-stats">
-            <div class="stat-card glass reveal">
-              <strong>Design que impacta</strong>
-              <span>Posts, reels, flyers, identidades e páginas com estética premium.</span>
-            </div>
-            <div class="stat-card glass reveal">
-              <strong>Estratégia que posiciona</strong>
-              <span>Mais do que arte bonita: direção, intenção e valor percebido.</span>
-            </div>
-            <div class="stat-card glass reveal">
-              <strong>Estrutura que vende</strong>
-              <span>Seu cliente sente que entrou em uma plataforma, não em algo improvisado.</span>
-            </div>
-          </div>
-        </div>
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image:
+    radial-gradient(circle at 20% 20%, #ffffff 0.8px, transparent 1px),
+    radial-gradient(circle at 80% 35%, #ffffff 0.7px, transparent 1px),
+    radial-gradient(circle at 50% 75%, #ffffff 0.6px, transparent 1px);
+  background-size: 140px 140px;
+}
 
-        <div class="hero-visual reveal">
-          <div class="floating-orb orb-1"></div>
-          <div class="floating-orb orb-2"></div>
-          <div class="floating-orb orb-3"></div>
+.glow {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: -2;
+  pointer-events: none;
+  opacity: 0.35;
+}
 
-          <div class="dashboard-mockup glass" id="dashboardMockup">
-            <div class="mockup-top">
-              <span></span><span></span><span></span>
-            </div>
+.glow-1 {
+  width: 380px;
+  height: 380px;
+  left: -60px;
+  top: 120px;
+  background: rgba(138, 46, 255, 0.22);
+}
 
-            <div class="mockup-body">
-              <div class="mockup-left">
-                <div class="mini-card purple">
-                  <small>Plano ativo</small>
-                  <strong>Luman Pro</strong>
-                </div>
+.glow-2 {
+  width: 340px;
+  height: 340px;
+  right: -80px;
+  top: 80px;
+  background: rgba(255, 46, 166, 0.18);
+}
 
-                <div class="mini-card pink">
-                  <small>Créditos disponíveis</small>
-                  <strong>42 créditos</strong>
-                </div>
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
-                <div class="mini-card dark">
-                  <small>Pedidos</small>
-                  <strong>7 em andamento</strong>
-                </div>
-              </div>
+button,
+input {
+  font: inherit;
+}
 
-              <div class="mockup-right">
-                <div class="mockup-service">
-                  <div>
-                    <small>Serviço selecionado</small>
-                    <h3>Reels + Feed Premium</h3>
-                  </div>
-                  <span>High Value</span>
-                </div>
+img {
+  display: block;
+  max-width: 100%;
+}
 
-                <div class="mockup-lines">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
+.container {
+  width: min(100% - 32px, var(--container));
+  margin: 0 auto;
+}
 
-                <button class="mockup-btn" type="button">Solicitar agora</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+.glass {
+  background: linear-gradient(180deg, var(--glass-1), var(--glass-2));
+  border: 1px solid var(--line);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: var(--shadow);
+}
 
-    <section class="section" id="como-funciona">
-      <div class="container">
-        <div class="section-head reveal">
-          <span class="section-tag">COMO FUNCIONA</span>
-          <h2>Uma experiência simples por fora. Mas poderosa por dentro.</h2>
-          <p>
-            O cliente entra, escolhe serviços, ajusta quantidades, visualiza o valor em tempo real
-            e sente clareza. Isso aumenta o valor percebido da sua marca e deixa o processo mais profissional.
-          </p>
-        </div>
+.section {
+  padding: 110px 0;
+  position: relative;
+}
 
-        <div class="steps-grid">
-          <article class="step-card glass reveal">
-            <span>01</span>
-            <h3>Escolha um plano fixo</h3>
-            <p>Para quem quer consistência, agilidade e um pacote pronto para crescer com organização.</p>
-          </article>
+.section-dark {
+  background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+}
 
-          <article class="step-card glass reveal">
-            <span>02</span>
-            <h3>Ou monte seu pedido</h3>
-            <p>O cliente seleciona exatamente o que quer, como em um cardápio premium e intuitivo.</p>
-          </article>
+.section-head {
+  max-width: 780px;
+  margin-bottom: 52px;
+}
 
-          <article class="step-card glass reveal">
-            <span>03</span>
-            <h3>Veja o valor na hora</h3>
-            <p>O site calcula tudo automaticamente e transforma a experiência em algo moderno e confiável.</p>
-          </article>
-        </div>
-      </div>
-    </section>
+.section-tag,
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+  color: #f4d7ff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin-bottom: 18px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+}
 
-    <section class="section section-dark" id="planos">
-      <div class="container">
-        <div class="section-head reveal">
-          <span class="section-tag">PLANOS FIXOS</span>
-          <h2>Para marcas que precisam de constância, presença e força visual.</h2>
-          <p>
-            Esses planos funcionam como uma porta premium para quem quer previsibilidade,
-            suporte criativo e produção recorrente.
-          </p>
-        </div>
+.section-head h2,
+.hero h1,
+.cta-box h2 {
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
 
-        <div class="plans-grid">
-          <article class="plan-card glass reveal">
-            <span class="plan-badge">Essencial</span>
-            <h3>Luman Start</h3>
-            <div class="price">R$ 697<span>/mês</span></div>
-            <ul>
-              <li>8 posts para feed</li>
-              <li>4 stories</li>
-              <li>1 flyer promocional</li>
-              <li>Suporte criativo</li>
-            </ul>
-            <a href="#cardapio" class="btn btn-secondary full">Escolher este</a>
-          </article>
+.section-head h2 {
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  margin-bottom: 18px;
+}
 
-          <article class="plan-card featured reveal">
-            <span class="plan-badge">Mais escolhido</span>
-            <h3>Luman Pro</h3>
-            <div class="price">R$ 1.297<span>/mês</span></div>
-            <ul>
-              <li>12 posts para feed</li>
-              <li>8 stories</li>
-              <li>4 reels</li>
-              <li>2 flyers promocionais</li>
-              <li>Direcionamento estratégico</li>
-            </ul>
-            <a href="#cardapio" class="btn btn-primary full">Quero o Pro</a>
-          </article>
+.section-head p,
+.hero-text,
+.cta-box p,
+.step-card p,
+.plan-card ul li,
+.service-card p,
+.summary-box p,
+.footer p,
+.brand-subtitle {
+  color: var(--muted);
+  line-height: 1.7;
+}
 
-          <article class="plan-card glass reveal">
-            <span class="plan-badge">Escala</span>
-            <h3>Luman Prime</h3>
-            <div class="price">R$ 2.197<span>/mês</span></div>
-            <ul>
-              <li>20 posts para feed</li>
-              <li>12 stories</li>
-              <li>8 reels</li>
-              <li>3 flyers promocionais</li>
-              <li>Prioridade criativa</li>
-            </ul>
-            <a href="#cardapio" class="btn btn-secondary full">Escolher este</a>
-          </article>
-        </div>
-      </div>
-    </section>
+.gradient-text {
+  background: linear-gradient(90deg, var(--purple), #e59dff, var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-    <section class="section" id="cardapio">
-      <div class="container">
-        <div class="section-head reveal">
-          <span class="section-tag">CARDÁPIO DE SERVIÇOS</span>
-          <h2>Monte o seu pedido do seu jeito.</h2>
-          <p>
-            Seu cliente escolhe o que precisa, ajusta a quantidade e acompanha o valor estimado em tempo real.
-            Isso deixa o site com cara de plataforma de alto nível.
-          </p>
-        </div>
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 14px 24px;
+  border-radius: 18px;
+  font-weight: 800;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease,
+    background 0.28s ease,
+    opacity 0.28s ease;
+  overflow: hidden;
+  isolation: isolate;
+}
 
-        <div class="menu-layout">
-          <div class="services-grid">
-            <article class="service-card glass reveal" data-name="Post para Feed" data-price="80">
-              <div class="service-top">
-                <span class="service-category">Social Media</span>
-                <span class="service-price">R$ 80</span>
-              </div>
-              <h3>Post para Feed</h3>
-              <p>Peça criativa com estética forte, copy pensada e impacto visual real.</p>
-              <div class="qty-wrap">
-                <button class="qty-btn minus" type="button">−</button>
-                <input type="number" class="qty-input" min="0" value="0" />
-                <button class="qty-btn plus" type="button">+</button>
-              </div>
-            </article>
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 16px;
+  z-index: -1;
+}
 
-            <article class="service-card glass reveal" data-name="Story Unitário" data-price="35">
-              <div class="service-top">
-                <span class="service-category">Instagram</span>
-                <span class="service-price">R$ 35</span>
-              </div>
-              <h3>Story Unitário</h3>
-              <p>Story para interação, anúncio, enquete, prova social ou conversão.</p>
-              <div class="qty-wrap">
-                <button class="qty-btn minus" type="button">−</button>
-                <input type="number" class="qty-input" min="0" value="0" />
-                <button class="qty-btn plus" type="button">+</button>
-              </div>
-            </article>
+.btn:hover {
+  transform: translateY(-2px);
+}
 
-            <article class="service-card glass reveal" data-name="Reels Editado" data-price="150">
-              <div class="service-top">
-                <span class="service-category">Vídeo</span>
-                <span class="service-price">R$ 150</span>
-              </div>
-              <h3>Reels Editado</h3>
-              <p>Edição dinâmica, retenção, cortes modernos e acabamento premium.</p>
-              <div class="qty-wrap">
-                <button class="qty-btn minus" type="button">−</button>
-                <input type="number" class="qty-input" min="0" value="0" />
-                <button class="qty-btn plus" type="button">+</button>
-              </div>
-            </article>
+.btn-primary {
+  color: white;
+  background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 100%);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 14px 34px rgba(138, 46, 255, 0.24),
+    0 0 0 1px rgba(255,255,255,0.04);
+}
 
-            <article class="service-card glass reveal" data-name="Flyer Promocional" data-price="120">
-              <div class="service-top">
-                <span class="service-category">Design</span>
-                <span class="service-price">R$ 120</span>
-              </div>
-              <h3>Flyer Promocional</h3>
-              <p>Arte impactante para campanhas, promoções e eventos com cara de marca forte.</p>
-              <div class="qty-wrap">
-                <button class="qty-btn minus" type="button">−</button>
-                <input type="number" class="qty-input" min="0" value="0" />
-                <button class="qty-btn plus" type="button">+</button>
-              </div>
-            </article>
+.btn-primary::before {
+  background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
+}
 
-            <article class="service-card glass reveal" data-name="Identidade Visual" data-price="750">
-              <div class="service-top">
-                <span class="service-category">Branding</span>
-                <span class="service-price">R$ 750</span>
-              </div>
-              <h3>Identidade Visual</h3>
-              <p>Construção visual completa com coerência, imponência e personalidade.</p>
-              <div class="qty-wrap">
-                <button class="qty-btn minus" type="button">−</button>
-                <input type="number" class="qty-input" min="0" value="0" />
-                <button class="qty-btn plus" type="button">+</button>
-              </div>
-            </article>
+.btn-primary:hover {
+  box-shadow:
+    0 18px 42px rgba(255, 46, 166, 0.24),
+    0 0 0 1px rgba(255,255,255,0.06);
+}
 
-            <article class="service-card glass reveal" data-name="Landing Page" data-price="1500">
-              <div class="service-top">
-                <span class="service-category">Web</span>
-                <span class="service-price">R$ 1.500</span>
-              </div>
-              <h3>Landing Page</h3>
-              <p>Página de vendas com impacto visual, copy estratégica e alta percepção de valor.</p>
-              <div class="qty-wrap">
-                <button class="qty-btn minus" type="button">−</button>
-                <input type="number" class="qty-input" min="0" value="0" />
-                <button class="qty-btn plus" type="button">+</button>
-              </div>
-            </article>
-          </div>
+.btn-secondary {
+  color: var(--text);
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.14);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+}
 
-          <aside class="summary-box glass reveal">
-            <div class="summary-sticky">
-              <span class="section-tag">RESUMO DO PEDIDO</span>
-              <h3>Seu cardápio Luman</h3>
-              <p>Escolha os serviços e acompanhe o valor estimado em tempo real.</p>
+.btn-secondary::before {
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
+}
 
-              <div class="summary-list" id="summaryList">
-                <div class="empty-summary">Nenhum item selecionado ainda.</div>
-              </div>
+.full {
+  width: 100%;
+}
 
-              <div class="summary-total">
-                <span>Total estimado</span>
-                <strong id="totalPrice">R$ 0,00</strong>
-              </div>
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(5, 5, 10, 0.7);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
 
-              <button class="btn btn-primary full" id="sendOrderBtn" type="button">Solicitar orçamento</button>
-              <button class="btn btn-secondary full" id="clearOrderBtn" type="button">Limpar seleção</button>
-            </div>
-          </aside>
-        </div>
-      </div>
-    </section>
+.nav {
+  min-height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+}
 
-    <section class="section cta-section">
-      <div class="container">
-        <div class="cta-box glass reveal">
-          <span class="section-tag">LUMAN.HUB</span>
-          <h2>Seu site também pode ser sua prova de autoridade.</h2>
-          <p>
-            Quando um cliente entra e sente nível, clareza e presença, ele já começa a te enxergar como a escolha certa.
-            Essa página não vende só serviços. Ela vende percepção.
-          </p>
-          <a href="#cardapio" class="btn btn-primary">Começar agora</a>
-        </div>
-      </div>
-    </section>
-  </main>
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
 
-  <footer class="footer" id="contato">
-    <div class="container footer-content">
-      <div>
-        <h3>Luman.Hub</h3>
-        <p>Somos seus parceiros na jornada.</p>
-      </div>
-
-      <div class="footer-links">
-        <a href="#topo">Início</a>
-        <a href="#planos">Planos</a>
-        <a href="#cardapio">Cardápio</a>
-      </div>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
 .brand-mark {
   width: 16px;
   height: 16px;
@@ -383,4 +293,733 @@
   background: linear-gradient(135deg, var(--purple), var(--pink));
   box-shadow: 0 0 22px rgba(255, 46, 166, 0.35);
   flex-shrink: 0;
+}
+
+.brand-text-wrap {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.brand-title {
+  font-size: 1.08rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.brand-subtitle {
+  font-size: 0.78rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  color: #e5dcef;
+}
+
+.nav-links a {
+  font-size: 0.95rem;
+  transition: 0.25s ease;
+}
+
+.nav-links a:hover {
+  color: #fff;
+  text-shadow: 0 0 16px rgba(255, 46, 166, 0.25);
+}
+
+.hero {
+  min-height: calc(100vh - 88px);
+  display: flex;
+  align-items: center;
+  padding: 90px 0 80px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: clamp(2.9rem, 6vw, 6rem);
+  max-width: 860px;
+  margin-bottom: 24px;
+}
+
+.hero-text {
+  font-size: 1.06rem;
+  max-width: 710px;
+  margin-bottom: 30px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 36px;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.stat-card {
+  padding: 24px;
+  border-radius: 22px;
+  box-shadow: var(--shadow-soft);
+}
+
+.stat-card strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.stat-card span {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.hero-visual {
+  position: relative;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-mockup {
+  width: 100%;
+  max-width: 560px;
+  border-radius: 30px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.18s ease;
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.45),
+    0 0 40px rgba(138, 46, 255, 0.10);
+}
+
+.dashboard-mockup::before {
+  content: "";
+  position: absolute;
+  inset: -15%;
+  background: radial-gradient(circle at center, rgba(255, 46, 166, 0.10), transparent 45%);
+  pointer-events: none;
+}
+
+.dashboard-mockup::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    130deg,
+    rgba(255,255,255,0.07),
+    transparent 30%,
+    transparent 70%,
+    rgba(255,255,255,0.03)
+  );
+  pointer-events: none;
+}
+
+.mockup-top {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.mockup-top span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+}
+
+.mockup-body {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 18px;
+}
+
+.mockup-left,
+.mockup-right {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mini-card,
+.mockup-service,
+.mockup-lines,
+.mockup-btn {
+  border-radius: 18px;
+}
+
+.mini-card {
+  padding: 18px;
+  min-height: 104px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.mini-card small,
+.mockup-service small {
+  color: rgba(255,255,255,0.74);
+  font-size: 0.82rem;
+}
+
+.mini-card strong {
+  font-size: 1.06rem;
+}
+
+.mini-card.purple {
+  background: linear-gradient(135deg, rgba(94, 17, 184, 0.86), rgba(138, 46, 255, 0.28));
+}
+
+.mini-card.pink {
+  background: linear-gradient(135deg, rgba(255, 46, 166, 0.65), rgba(198, 30, 125, 0.24));
+}
+
+.mini-card.dark {
+  background: rgba(255,255,255,0.05);
+}
+
+.mockup-service {
+  padding: 18px;
+  background: rgba(255,255,255,0.05);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.mockup-service h3 {
+  font-size: 1.05rem;
+  margin-top: 6px;
+}
+
+.mockup-service span {
+  padding: 9px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  font-size: 0.75rem;
+  font-weight: 800;
+  box-shadow: 0 0 20px rgba(255, 46, 166, 0.2);
+}
+
+.mockup-lines {
+  padding: 18px;
+  background: rgba(255,255,255,0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mockup-lines span {
+  display: block;
+  height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.18));
+}
+
+.mockup-lines span:nth-child(1) { width: 92%; }
+.mockup-lines span:nth-child(2) { width: 78%; }
+.mockup-lines span:nth-child(3) { width: 86%; }
+.mockup-lines span:nth-child(4) { width: 60%; }
+
+.mockup-btn {
+  min-height: 50px;
+  border: 1px solid rgba(255,255,255,0.09);
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  color: white;
+  font-weight: 900;
+  box-shadow: 0 14px 30px rgba(138, 46, 255, 0.18);
+}
+
+.floating-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(16px);
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+.orb-1 {
+  width: 180px;
+  height: 180px;
+  background: rgba(138, 46, 255, 0.28);
+  top: 18px;
+  left: -20px;
+}
+
+.orb-2 {
+  width: 160px;
+  height: 160px;
+  background: rgba(255, 46, 166, 0.24);
+  bottom: 12px;
+  right: 8px;
+}
+
+.orb-3 {
+  width: 120px;
+  height: 120px;
+  background: rgba(255, 139, 208, 0.16);
+  top: 50%;
+  right: -24px;
+}
+
+.steps-grid,
+.plans-grid {
+  display: grid;
+  gap: 22px;
+}
+
+.steps-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.step-card,
+.plan-card,
+.service-card,
+.summary-box,
+.cta-box {
+  border-radius: var(--radius);
+}
+
+.step-card {
+  padding: 32px;
+  position: relative;
+}
+
+.step-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+  pointer-events: none;
+}
+
+.step-card span {
+  display: inline-block;
+  margin-bottom: 18px;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #f0bbff;
+}
+
+.step-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+}
+
+.plans-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.plan-card {
+  padding: 30px;
+  position: relative;
+}
+
+.plan-card.featured {
+  background: linear-gradient(180deg, rgba(138, 46, 255, 0.24), rgba(255, 46, 166, 0.14));
+  border: 1px solid rgba(255,255,255,0.14);
+  transform: translateY(-8px);
+  box-shadow:
+    0 22px 60px rgba(255, 46, 166, 0.08),
+    0 0 0 1px rgba(255,255,255,0.03);
+}
+
+.plan-badge {
+  display: inline-flex;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  margin-bottom: 18px;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.plan-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 14px;
+}
+
+.price {
+  font-size: 2.2rem;
+  font-weight: 900;
+  margin-bottom: 18px;
+}
+
+.price span {
+  font-size: 1rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.plan-card ul {
+  list-style: none;
+  margin-bottom: 22px;
+}
+
+.plan-card ul li {
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 18px;
+}
+
+.plan-card ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+}
+
+.menu-layout {
+  display: grid;
+  grid-template-columns: 1.22fr 0.78fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.service-card {
+  padding: 24px;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  box-shadow: var(--shadow-soft);
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255,255,255,0.16);
+  box-shadow:
+    0 16px 40px rgba(138, 46, 255, 0.16),
+    0 0 0 1px rgba(255,255,255,0.03);
+}
+
+.service-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.service-category {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #efc8ff;
+}
+
+.service-price {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #ffd7ee;
+}
+
+.service-card h3 {
+  font-size: 1.35rem;
+  margin-bottom: 10px;
+}
+
+.qty-wrap {
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.qty-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 15px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.qty-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.09);
+  border-color: rgba(255,255,255,0.16);
+  box-shadow: 0 0 18px rgba(255, 46, 166, 0.12);
+}
+
+.qty-input {
+  width: 88px;
+  height: 46px;
+  border-radius: 15px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.22);
+  color: #fff;
+  text-align: center;
+  outline: none;
+}
+
+.qty-input:focus {
+  border-color: rgba(255, 46, 166, 0.35);
+  box-shadow: 0 0 0 3px rgba(255, 46, 166, 0.08);
+}
+
+.summary-box {
+  padding: 24px;
+  box-shadow:
+    0 18px 50px rgba(255, 46, 166, 0.08),
+    var(--shadow);
+}
+
+.summary-sticky {
+  position: sticky;
+  top: 108px;
+}
+
+.summary-box h3 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.summary-list {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.summary-item,
+.empty-summary {
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: center;
+}
+
+.summary-item strong {
+  display: block;
+  font-size: 0.98rem;
+  margin-bottom: 6px;
+}
+
+.summary-item span {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.summary-price {
+  white-space: nowrap;
+  font-weight: 900;
+  color: #fff2fb;
+}
+
+.summary-total {
+  padding: 22px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(138, 46, 255, 0.25), rgba(255, 46, 166, 0.18));
+  border: 1px solid rgba(255,255,255,0.12);
+  margin-bottom: 18px;
+  box-shadow: inset 0 0 30px rgba(255,255,255,0.02);
+}
+
+.summary-total span {
+  display: block;
+  color: #f2dbff;
+  margin-bottom: 10px;
+}
+
+.summary-total strong {
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+.cta-section {
+  padding-top: 40px;
+  padding-bottom: 110px;
+}
+
+.cta-box {
+  padding: 58px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-box::before {
+  content: "";
+  position: absolute;
+  inset: -10%;
+  background: radial-gradient(circle at center, rgba(255, 46, 166, 0.08), transparent 35%);
+  pointer-events: none;
+}
+
+.cta-box h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  margin-bottom: 18px;
+}
+
+.cta-box p {
+  max-width: 760px;
+  margin: 0 auto 24px;
+}
+
+.footer {
+  padding: 34px 0 54px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+}
+
+.footer-content h3 {
+  margin-bottom: 8px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 18px;
+  color: var(--muted);
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 1100px) {
+  .hero-grid,
+  .menu-layout,
+  .plans-grid,
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-visual {
+    min-height: auto;
+  }
+
+  .summary-sticky {
+    position: relative;
+    top: unset;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-overlay {
+    opacity: 0.62;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.10) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.10) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .glow-1,
+  .glow-2 {
+    opacity: 0.42;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav {
+    min-height: 78px;
+  }
+
+  .brand-subtitle {
+    font-size: 0.72rem;
+  }
+
+  .hero {
+    padding: 56px 0 64px;
+  }
+
+  .hero-stats,
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mockup-body {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.2rem, 11vw, 3.6rem);
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .cta-box,
+  .step-card,
+  .plan-card,
+  .service-card,
+  .summary-box {
+    padding: 22px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
