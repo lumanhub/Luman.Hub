@@ -376,3 +376,11 @@
   <script src="script.js"></script>
 </body>
 </html>
+.brand-mark {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  box-shadow: 0 0 22px rgba(255, 46, 166, 0.35);
+  flex-shrink: 0;
+}
