@@ -4,12 +4,15 @@
   --surface: rgba(255, 255, 255, 0.06);
   --surface-strong: rgba(255, 255, 255, 0.1);
   --text: #f4f1ff;
-  --muted: #b4aec7;
+  --muted: #b9aec7;
   --line: rgba(255, 255, 255, 0.1);
-  --purple: #a855f7;
-  --purple-2: #7c3aed;
-  --orange: #ff7a18;
-  --orange-2: #ff5e00;
+
+  --purple: #6d28d9;
+  --purple-2: #4c1d95;
+
+  --carmesim: #c72c58;
+  --carmesim-2: #a61e47;
+
   --white: #ffffff;
   --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
   --radius: 24px;
