@@ -3,10 +3,8 @@ const summaryList = document.getElementById("summaryList");
 const totalPriceEl = document.getElementById("totalPrice");
 const clearOrderBtn = document.getElementById("clearOrderBtn");
 const sendOrderBtn = document.getElementById("sendOrderBtn");
+const dashboard = document.querySelector(".dashboard-mockup");
 
-/* =========================
-   CARDÁPIO / RESUMO PEDIDO
-========================= */
 function formatBRL(value) {
   return value.toLocaleString("pt-BR", {
     style: "currency",
@@ -107,16 +105,13 @@ sendOrderBtn.addEventListener("click", () => {
 
   message += `%0ATotal estimado: ${formatBRL(total)}`;
 
-  const phone = "5521971574979"; // seu número com DDI +55
+  const phone = "5521971574979";
   const url = `https://wa.me/${phone}?text=${message}`;
   window.open(url, "_blank");
 });
 
 updateSummary();
 
-/* =========================
-   PARALLAX
-========================= */
 const parallaxElements = document.querySelectorAll(".parallax");
 
 function handleParallax() {
@@ -131,15 +126,30 @@ function handleParallax() {
 
 window.addEventListener("scroll", handleParallax);
 
-/* =========================
-   PARALLAX SUAVE NO MOUSE
-========================= */
 document.addEventListener("mousemove", (e) => {
-  const x = (e.clientX / window.innerWidth - 0.5) * 10;
-  const y = (e.clientY / window.innerHeight - 0.5) * 10;
+  if (!dashboard) return;
 
-  const dashboard = document.querySelector(".dashboard-mockup");
-  if (dashboard) {
-    dashboard.style.transform = `translate(${x * 0.6}px, ${y * 0.6}px)`;
-  }
+  const centerX = window.innerWidth / 2;
+  const centerY = window.innerHeight / 2;
+
+  const rotateY = (e.clientX - centerX) / 45;
+  const rotateX = -(e.clientY - centerY) / 55;
+
+  dashboard.style.transform = `
+    perspective(1200px)
+    rotateX(${rotateX}deg)
+    rotateY(${rotateY}deg)
+    translate3d(0, 0, 0)
+  `;
+});
+
+document.addEventListener("mouseleave", () => {
+  if (!dashboard) return;
+
+  dashboard.style.transform = `
+    perspective(1200px)
+    rotateX(0deg)
+    rotateY(0deg)
+    translate3d(0, 0, 0)
+  `;
 });
