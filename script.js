@@ -79,7 +79,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     qtyInput.addEventListener("input", () => {
       const value = Number(qtyInput.value);
-      qtyInput.value = !isNaN(value) && value >= 0 ? value : 0;
+
+      if (Number.isNaN(value) || value < 0) {
+        qtyInput.value = 0;
+      } else {
+        qtyInput.value = value;
+      }
+
       updateSummary();
     });
   });
@@ -127,20 +133,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-        }
-      });
-    },
-    {
-      threshold: 0.12
-    }
-  );
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      {
+        threshold: 0.12
+      }
+    );
 
-  revealItems.forEach((item) => observer.observe(item));
+    revealItems.forEach((item) => observer.observe(item));
+  } else {
+    revealItems.forEach((item) => item.classList.add("is-visible"));
+  }
 
   if (dashboard && window.innerWidth > 768) {
     document.addEventListener("mousemove", (e) => {
